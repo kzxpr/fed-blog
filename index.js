@@ -3,12 +3,6 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3011;
 
-function onlyUnique(value, index, array) {
-    // HOW TO USE:
-    // var unique = a.filter(onlyUnique);
-    return array.indexOf(value) === index;
-}
-
 /* KNEX */
 const { Tag, Account, Message } = require("./server/models/db")
 const db = require("./knexfile")
@@ -80,6 +74,9 @@ const config = {
     partialsDir: __dirname + '/views/partials/'
 };
 const hbs = exphbs.create(config);
+
+/* FUNCS */
+const { onlyUnique } = require("./funcs")
 
 const funcs = require("./funcs")
 for(let func in funcs){

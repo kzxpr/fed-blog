@@ -72,4 +72,10 @@ function substr(str, from, len = 0){
     }
 }
 
-module.exports = { sum, neq, eq, prettydatetime, gt, lt, count, fillWithZero, prettyJSON, notnull, notempty, parseJSON, setVar, substr }
+function onlyUnique(value, index, array) {
+    // HOW TO USE:
+    // var unique = a.filter(onlyUnique);
+    return array.indexOf(value) === index;
+}
+
+module.exports = { sum, neq, eq, prettydatetime, gt, lt, count, fillWithZero, prettyJSON, notnull, notempty, parseJSON, setVar, substr, onlyUnique }
