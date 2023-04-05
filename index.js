@@ -14,8 +14,6 @@ const { Tag, Account, Message } = require("./server/models/db")
 const db = require("./knexfile")
 const knex = require("knex")(db)
 
-const { encodeStr } = require("./server/fed-plugin/lib/addAccount")
-
 /* CORS */
 const cors = require('cors')
 
@@ -63,61 +61,14 @@ async function loadConfig(){
 
 loadConfig();
 
-/* BASIC AUTH FOR ACTIVITY PUB */
-basicAuth = require('express-basic-auth');
-let basicUserAuth = basicAuth({
-    authorizer: asyncAuthorizer,
-    authorizeAsync: true,
-    challenge: true
-});
-
-function asyncAuthorizer(username, password, cb) {
-    let isAuthorized = false;
-    const isPasswordAuthorized = username === process.env.AP_USER;
-    const isUsernameAuthorized = password === process.env.AP_PASS;
-    isAuthorized = isPasswordAuthorized && isUsernameAuthorized;
-    if (isAuthorized) {
-        return cb(null, true);
-    }
-    else {
-        return cb(null, false);
-    }
-}
-
 /* ACTIVITY PUB */
 const ap_webfinger = require("./server/fed-plugin/webfinger")
 const ap_user = require("./server/fed-plugin/user")
-app.use("/ap/admin", cors({ credentials: true, origin: true }), basicUserAuth);
+const ap_admin_routes = require("./server/fed-plugin/index")
+
 app.use("/.well-known/webfinger/", cors(), ap_webfinger)
 app.use("/u", cors(), ap_user)
-
-const tester_routes = require("./server/fed-plugin/tester")
-app.use("/ap/admin/tester", tester_routes);
-
-app.get("/ap/admin/logs", async(req, res) => {
-    await knex("aprequests").where("timestamp", ">", knex.raw("now() - interval 72 hour")).orderBy("timestamp", "desc")
-    .then((logs) => {
-        res.render("logs", { logs })
-    })
-    .catch((e) => {
-        res.sendStatus(404)
-    })
-})
-
-app.get("/ap/admin/logs/:logid", async(req, res) => {
-    const { logid } = req.params;
-    await knex("aprequests").where("id", "=", logid).first()
-    .then((log) => {
-        res.render("logitem", { log })
-    })
-    .catch((e) => {
-        res.sendStatus(404)
-    })
-})
-
-app.get("/ap/admin", (req, res) => {
-    res.sendFile(path.join(__dirname, "server", "fed-plugin", "admin.html"))
-})
+app.use("/ap/admin", ap_admin_routes);
 
 /* STATICS */
 app.use('/public', express.static(__dirname + '/public'));
@@ -171,20 +122,6 @@ async function getSiteInfo(){
 const { checkFeed } = require("./server/fed-plugin/lib/checkFeed")
 
 app.get("/checkfeed", checkFeed)
-
-/*app.get("/tjek", async(req, res) => {
-    const str = "ch 🍑 N ▇ I S B ▇ B";
-    const encstr = encodeStr(str)
-    console.log(encstr)
-    await knex("test").insert({ text: encstr })
-    .then((d) => {
-        console.log("SUCCESS!")
-    })
-    .catch((e) => {
-        console.error(e)
-    })
-    res.send("OK")
-})*/
 
 app.get('/profile/:username', async function (req, res) {
     let username = req.params.username;
