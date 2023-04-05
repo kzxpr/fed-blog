@@ -126,7 +126,7 @@ app.get('/profile/:username', async function (req, res) {
     if (!username) {
         res.status(404);
     } else {
-        await knex("apaccounts").where("handle", "=", username+"@"+domain)
+        await Account.query().where("handle", "=", username+"@"+domain)
         .then(async(data) => {
             res.send("Welcome to "+username+"'s profile!")
         })
