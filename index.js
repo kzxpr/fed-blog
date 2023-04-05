@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 3011;
 
 /* KNEX */
-const { Tag, Account, Message } = require("./server/models/db")
+const { Tag, Account, Message } = require("./server/fed-plugin/models/db")
 const db = require("./knexfile")
 const knex = require("knex")(db)
 
