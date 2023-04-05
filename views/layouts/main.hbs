@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="{{sitetitle}} - {{sitesubtitle}}. Made with FED blog" />
+        <meta property="og:image" content="/public/icon128.png" />
+        <link rel="icon" type="image/png" href="/public/icon128.png"/>
+        <meta property="og:description" content="{{sitetitle}} - {{sitesubtitle}}. Made with FED blog" />
+        <meta property="og:title" content="{{#if pagetitle}}{{pagetitle}} //{{/if}}{{sitetitle}}" />
+        <title>{{#if pagetitle}}{{pagetitle}} //{{/if}}{{sitetitle}}</title>
+        <link href="/public/main.css" rel="stylesheet">
+    </head>
+    <body>
+        <main>
+            <header>
+                <div class="sitetitle">
+                    <a href='/'>{{sitetitle}}</a>
+                </div>
+                <div class="sitesubtitle">
+                    {{sitesubtitle}}
+                </div>
+                <div class="followme">
+                    <form action="/followme" method="post">
+                        <label>Subscribe using your Mastodon instance:</label>
+                        <input type="text" name="your_instance" placeholder="mastodon.social">
+                        <input type="submit" value="Follow on Mastodon!">
+                        <label><a href="/what">(huh?)</a></label>
+                    </form>
+                </div>
+            </header>
+            <section>
+                {{{body}}}
+            </section>
+            <footer>
+                {{{footer}}}
+            </footer>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,23 @@
+<div style="width: 100%;">
+{{#if (eq this.mediaType "image/png")}}
+    <img src="{{this.url}}" style="width: 100%; border-radius: 5px;">
+{{else if (eq this.mediaType "image/jpeg")}}
+    <img src="{{this.url}}" style="width: 100%; border-radius: 5px;">
+{{else if (eq this.mediaType "image/jpg")}}
+    <img src="{{this.url}}" style="width: 100%; border-radius: 5px;">
+{{else if (eq this.mediaType "image/webp")}}
+    <img src="{{this.url}}" style="width: 100%; border-radius: 5px;">
+{{else if (eq this.mediaType "audio/mpeg")}}
+    <audio controls width="100%">
+        <source src="{{this.url}}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+{{else}}
+    <div>Cannot show attachment ({{this.mediaType}})</div>
+{{/if}}
+</div>
+{{#if (notnull this.name)}}
+    <div style="font-style: italic; width: 100%">
+        {{this.name}}
+    </div>
+{{/if}}

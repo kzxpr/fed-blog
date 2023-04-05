@@ -1,0 +1,131 @@
+<div class="blog--wrap">
+    <nav class="blog--menu">
+        <b>Tags:</b>
+        <ul class="taglist">
+            {{#each tags}}
+                {{#if (eq this.name ../tagname)}}
+                    <li class="taglist--sel"><a href='/tag/{{this.name}}'>{{this.name}}</a></li>
+                {{else}}
+                    <li class="taglist--item"><a href='/tag/{{this.name}}'>{{this.name}}</a></li>
+                {{/if}}
+            {{/each}}
+        </ul>
+        <div></div>
+            <b>Followers:</b>
+            <div class="followers--box">
+            {{#each account.followers}}
+                {{#if (notempty this.icon)}}
+                    <div class="followers--icon">
+                        <a href="{{this.uri}}" target="_new">
+                            <img src="{{this.icon}}" width="50" alt="{{this.displayname}}">
+                        </a>
+                    </div>
+                {{/if}}
+            {{/each}}
+            </div>
+        <div></div>
+        <div>
+            <ul class="linklist">
+                {{#each links}}
+                    <li class="linklist--item"><a href='{{this.url}}' target='_new'>{{this.name}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+    </nav>
+    <div class="blog--main">
+        {{#if (gt (count posts) 0)}}
+            {{#each posts}}
+                <section class="post--wrap">
+                    <div class="post--header">{{this.summary}}</div>
+                    <div class="post--body">
+                        {{{this.content}}}
+                        {{#if this.attachments}}
+                            <div>
+                                {{#each this.attachments}}
+                                    {{> attachment this}}
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                    </div>
+                    <div>
+                        {{#if this.likes}}
+                            <div style="display: flex; width: 100%; align-items: center;">
+                                <div style="font-weight: bold; width: 10%;">LIKES:</div>
+                                <div>
+                                    <ul style="display: flex; list-style-type: none; margin: 0px; padding: 0px;">
+                                        {{#each this.likes}}
+                                            <li style="display: flex; margin: 10px 0px;">
+                                                <a href="{{this.sender.uri}}" target="_new">
+                                                    <img src="{{this.sender.icon}}" alt="{{this.sender.displayname}}" title="{{this.sender.displayname}}" style="width: 30px">
+                                                </a>
+                                            </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                        {{/if}}
+
+                        {{#if this.announces}}
+                            <div style="display: flex; width: 100%; align-items: center;">
+                                <div style="font-weight: bold; width: 10%;">BOOSTS:</div>
+                                <div>
+                                    <ul style="display: flex; list-style-type: none; margin: 0px; padding: 0px;">
+                                        {{#each this.announces}}
+                                            <li style="display: flex; margin: 10px 0px;">
+                                                <a href="{{this.sender.uri}}" target="_new">
+                                                    <img src="{{this.sender.icon}}" alt="{{this.sender.displayname}}" title="{{this.sender.displayname}}" style="width: 30px">
+                                                </a>
+                                            </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                        {{/if}}
+                    </div>
+                    <div class="post--footer">
+                        <div class="post--tags">
+                            <ul class="post--tags--list">
+                                {{#each this.tags}}
+                                    {{#if (eq this.url_friendly ../tagname)}}
+                                        <li class="taglist--sel"><a href="/tag/{{this.url_friendly}}">{{substr this.name 1 0}}</a></li>
+                                    {{else}}
+                                        <li class="taglist--item"><a href="/tag/{{this.url_friendly}}">{{substr this.name 1 0}}</a></li>
+                                    {{/if}}
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class="post--date">
+                            {{prettydatetime this.createdAt}}
+                        </div>
+                    </div>
+                    {{#if this.replies}}
+                        <div class="post--comments" style="border-top: 1px solid #000;">
+                            {{#each this.replies}}
+                                <div style="display: flex; width: 100%;">
+                                    <div style="width: 8%; padding: 1%;">
+                                        <a href="{{this.creator.uri}}" target="_new">
+                                            <img src="{{this.creator.icon}}" alt="{{this.creator.displayname}}" title="{{this.creator.displayname}}" style="width: 50px" />
+                                        </a>
+                                    </div>
+                                    <div style="padding: 1%;">
+                                        {{{this.content}}}
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                </section>
+            {{/each}}
+            <section class="blog--more">
+                <a href="/page/{{nextpage}}">MORE!</a>
+            </section>
+        {{else}}
+            <section class="post--empty">
+                No (more) posts matches your request...
+            </section>
+            <section class="blog--more">
+                <a href="/">To frontpage</a>
+            </section>
+        {{/if}}
+    </div>
+</div>

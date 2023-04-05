@@ -1,0 +1,144 @@
+{{#each messages}}
+    <div style="margin: 10px; border: 1px solid #000; padding: 10px;">
+        <div style="display: flex; flex-direction: row; margin: 1%; justify-content: space-between; width: 98%;">
+            <div style="width: 60px;">
+                {{#if this.creator.icon}}
+                    <img src="{{this.creator.icon}}" width="50">
+                {{else}}
+                    <img src="public/icon128.png" height="30">
+                {{/if}}
+                
+            </div>
+            <div style="flex-grow: 10;">
+                {{#if (notnull this.creator.displayname)}}
+                    <b>{{this.creator.displayname}}</b><br>
+                {{else}}
+                    <b>{{this.creator.username}}</b><br>
+                {{/if}}
+                {{this.creator.handle}}
+            </div>
+            <div style="width: 80px; text-align: right;">
+                {{this.public}}
+                {{this.followshare}}<br>
+                {{prettydatetime this.publishedAt}}
+            </div>
+        </div>
+
+        {{#if this.summary}}
+            <div style="border-bottom: 1px solid #ccc;">
+                {{{this.summary}}}
+            </div>
+        {{/if}}
+
+        <div>
+            {{{this.content}}}
+        </div>
+
+        {{#if (eq this.type "Question")}}
+            <div style="border-bottom: 1px solid #ccc;">
+                {{#if this.oneOf}}
+                    <table border="1" width="100%">
+                    {{#each (parseJSON this.oneOf)}}
+                        <tr>
+                            <td width="25%">{{this.name}}</td>
+                            {{setVar "optionname" this.name}}
+                            <td>
+                                {{setVar "optioncount" 0}}
+                                {{#if ../this.replies}}
+                                    {{#each ../this.replies}}
+                                        {{#if (eq this.name ../../../optionname)}}
+                                            <div>
+                                                <img src="{{this.creator.icon}}" height="50"><br>
+                                                {{this.creator.username}}
+                                            </div>
+                                            {{setVar "optioncount" (sum ../../../optioncount 1)}}
+                                        {{/if}}
+                                    {{/each}}
+                                {{/if}}
+                            </td>
+                            <td width="10%">
+                                {{../../optioncount}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </table>
+                {{/if}}
+                {{#if this.anyOf}}
+                    <ul>
+                    {{#each (parseJSON this.anyOf)}}
+                        <li>{{this.name}}</li>
+                    {{/each}}
+                    </ul>
+                {{/if}}
+            </div>
+        {{/if}}
+
+        {{#if this.attachments}}
+            <div style="width: 100%; text-align: center;">
+                {{#each this.attachments}}
+                    {{> attachment this}}
+                {{/each}}
+            </div>
+        {{/if}}
+
+        <div style="font-size: 10pt; margin: 10px;">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 90px;">LIKES:</div>
+                <div>
+                {{#each this.likes}}
+                    <div>{{this.sender.handle}}</div>
+                {{/each}}
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 90px;">ANNOUNCES:</div>
+                <div>
+                    {{#each this.announces}}
+                        <div>{{this.sender.handle}}</div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+
+        {{#if this.tags}}
+            <div style="border-top: 1px solid #ccc; display: flex; flex-wrap: wrap;">
+                {{#each this.tags}}
+                    <div style="margin: 10px 5px;"><a href="{{this.href}}">{{this.name}}</a></div>
+                {{/each}}
+            </div>
+        {{/if}}
+
+        {{#if this.replies}}
+            <div>
+                {{#each this.replies}}
+                    <div style="margin: 10px; padding: 10px; border-top: 1px solid #ccc;">
+                        <div style="display: flex; flex-direction: row; width: 100%;">
+                            <div style="text-align: center; width: 80px; padding: 10px;">
+                                <img src="{{this.creator.icon}}" width="50"><br>
+                                {{this.creator.username}}
+                            </div>
+                            <div style="display: flex; flex-grow: 10; flex-direction: column;">
+                                <div>
+                                    {{{this.content}}}
+                                </div>
+                                
+                                {{#if this.attachments}}
+                                    <div style="width: 100%;">
+                                        {{#each this.attachments}}
+                                            {{> attachment this}}
+                                        {{/each}}
+                                    </div>
+                                {{/if}}
+                            </div>
+                            <div style="width: 80px;">
+                                {{prettydatetime this.publishedAt}}
+                            </div>
+                        </div>
+                        
+                    </div>
+                {{/each}}
+            </div>
+        {{/if}}
+    </div>
+{{/each}}

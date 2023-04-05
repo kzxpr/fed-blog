@@ -1,0 +1,124 @@
+GET https://todon.eu/.well-known/webfinger/?resource=acct:kzxpr@todon.eu
+
+###
+
+GET https://test.fed-it.nu/.well-known/webfinger/?resource=acct:blog@test.fed-it.nu
+
+###
+
+GET https://todon.eu/users/kzxpr/outbox
+Accept: application/activity+json
+
+###
+
+GET https://todon.eu/users/kzxpr/outbox?page=true
+Accept: application/activity+json
+
+###
+
+GET https://todon.eu/users/kzxpr/statuses/109857105308944998/replies?only_other_accounts=true&page=true
+Accept: application/activity+json
+
+###
+
+POST https://hackademiet.dk/u/test/outbox
+Content-Type: application/json
+
+###
+
+GET https://dev2.hackademiet.dk/u/drno/outbox
+Content-Type: application/json
+
+###
+
+GET https://dev2.hackademiet.dk/u/drno/collections/featured
+Content-Type: application/json
+
+###
+
+GET https://todon.eu/users/kzxpr
+Access-Control-Allow-Origin: *
+Accept: application/activity+json
+
+###
+
+GET https://todon.eu/users/kzxpr/collections/featured
+Accept: application/activity+json
+
+###
+
+GET https://todon.eu/users/kzxpr/statuses/109661420743455368
+Accept: application/json
+
+###
+
+GET https://todon.eu/users/kzxpr/followers
+Access-Control-Allow-Origin: *
+Accept: application/activity+json
+
+###
+
+GET https://todon.eu/users/kzxpr/followers?page=1
+Access-Control-Allow-Origin: *
+Accept: application/activity+json
+
+###
+
+GET https://dev2.hackademiet.dk/u/blog/followers
+Access-Control-Allow-Origin: *
+Accept: application/activity+json
+
+###
+
+GET https://dev2.hackademiet.dk/u/blog/following
+Access-Control-Allow-Origin: *
+Accept: application/activity+json
+
+###
+
+GET https://dev2.hackademiet.dk/u/blog/followers?page=1
+Access-Control-Allow-Origin: *
+Accept: application/activity+json
+
+###
+GET https://dev2.hackademiet.dk/u/blog
+Access-Control-Allow-Origin: *
+Accept: application/activity+json
+
+###
+
+GET https://www.w3.org/ns/activitystreams.jsonld#Public
+Access-Control-Allow-Origin: *
+Accept: application/activity+json
+
+###
+
+GET https://yiny.org/accounts/djhnm
+Access-Control-Allow-Origin: *
+Content-Type: application/json
+
+###
+
+GET https://libranet.de/profile/kzxpr
+Access-Control-Allow-Origin: *
+Accept: application/activity+json
+
+###
+
+GET https://libranet.de/display/0b6b25a8-1163-b426-c4c1-3da542157652
+Accept: application/activity+json
+
+###
+
+GET https://libranet.de/profile/kzxpr
+Accept: application/activity+json
+
+###
+
+GET https://libranet.de/objects/0b6b25a8-1163-b9f7-b8f3-a17759794507
+Accept: application/activity+json
+
+###
+
+GET https://todon.eu/@kzxpr/109474743569775758
+Accept: application/activity+json

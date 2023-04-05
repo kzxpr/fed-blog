@@ -1,0 +1,140 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+}
+main{
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+}
+header{
+    border-bottom: 2px dashed blue;
+    padding: 10px;
+}
+footer{
+    border-top: 2px dashed blue;
+    padding: 10px;
+    text-align: center;
+    font-size: 10pt;
+}
+.sitetitle{
+    font-size: 20pt;
+}
+.sitetitle > a{
+    color: #000;
+}
+.sitesubtitle{
+    margin: 10px 0px;
+}
+.followme{
+    font-size: 10pt;
+}
+
+.blog--wrap{
+    display: flex;
+    flex-direction: row;
+}
+.blog--menu{
+    border-right: 1px solid #ccc;
+    width: 18%;
+    margin: 1%;
+}
+.blog--main{
+    width: 80%;
+}
+.blog--more{
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+.post--wrap{
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 20px;
+}
+.post--header{
+    font-size: 16pt;
+    font-weight: bold;
+}
+.post--body{
+    margin: 3px 0px;
+}
+h2{
+    font-size: 15pt;
+    text-decoration: underline;
+}
+.post--date{
+    font-style: italic;
+}
+.post--footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.post--empty{
+    min-height: 100px;
+    margin: 10px;
+    padding: 30px;
+    font-size: 14pt;
+    font-style: italic;
+}
+.text--wrap{
+    min-height: 100px;
+    margin: 10px;
+    padding: 30px;
+}
+.taglist{
+    list-style: "#";
+    margin: 0px;
+    padding: 5px 0px 20px 20px;
+}
+.taglist--item > a{
+    color: #777;
+}
+.taglist--item > a:hover{
+    text-decoration: underline;
+    color: #555;
+}
+.taglist--sel > a{
+    color: #000;
+    text-decoration: underline;
+}
+.linklist{
+    list-style: "\1F310";
+    margin: 0px;
+    padding: 20px 20px;
+}
+.linklist--item > a{
+    padding-left: 3px;
+    color: #777;
+}
+.linklist--item > a:hover{
+    text-decoration: underline;
+    color: #555;
+}
+.post--tags--list{
+    margin: 0px;
+    padding: 0px;
+    list-style: "#";
+    display: flex;
+    flex-direction: row;
+}
+.post--tags--list > li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.post--tags--list > li > a {
+    color: #777;
+}
+.post--tags--list > li > a:hover {
+    color: #555;
+}
+
+.followers--box{
+    display: flex;
+    flex-wrap: wrap;
+}
+.followers--icon{
+    display: flex;
+    width: 50px;
+}
