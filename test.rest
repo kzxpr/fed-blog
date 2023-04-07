@@ -21,6 +21,11 @@ Accept: application/activity+json
 
 ###
 
+GET https://mastodon.social/users/WiGeeky
+Accept: application/activity+json
+
+###
+
 POST https://hackademiet.dk/u/test/outbox
 Content-Type: application/json
 
