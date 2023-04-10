@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const port = 3000;
 
 const db = require("./../knexfile")
 
@@ -32,7 +33,7 @@ async function test(){
 
 app.get("/whereami", (req, res) => {
     // res.send(showDomain("lol")) // WONT work!
-    res.send(hub.showDomain("lol")) // WONT work!
+    res.send(hub.showDomain("lol"));
 })
 
 app.get("/me", async(req, res) => {
@@ -62,6 +63,6 @@ app.get("/", (req, res) => {
     res.send("Works!")
 })
 
-const port = 3000
-app.listen(3000, 
-     () => console.log(`Server listening on port ${port}.`));
+app.listen(3000,  function(){
+    console.log(`Server listening on port ${port}.`)
+});

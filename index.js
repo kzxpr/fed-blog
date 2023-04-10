@@ -14,6 +14,9 @@ const cors = require('cors')
 /* PATH */
 const path = require("path")
 
+/* CLC */
+const clc = require("cli-color");
+
 /* PASS PROXY - TO GET IPs */
 app.set('trust proxy',true); 
 
@@ -58,11 +61,23 @@ loadConfig();
 /* ACTIVITY PUB */
 const ap_webfinger = require("./server/fed-plugin/webfinger")
 const ap_user = require("./server/fed-plugin/user")
-const ap_admin_routes = require("./server/fed-plugin/index")
+const ap_admin_routes = require("./server/fed-plugin/admin")
 
 app.use("/.well-known/webfinger/", cors(), ap_webfinger)
 app.use("/u", cors(), ap_user)
 app.use("/ap/admin", ap_admin_routes);
+
+const fed = require("./server/fed-plugin/index")()
+
+fed.eventHandler.on("test", async function(follow_body){
+    console.log(clc.blue("TRIGGER"), clc.yellow("TEST!"), follow_body)
+
+    const local_uri = follow_body.object;
+    const domain = await getConfigByKey("domain")
+
+    await sendAcceptMessage(follow_body, domain)
+    //await sendLatestMessages(follower_uri, local_uri)
+})
 
 /* STATICS */
 app.use('/public', express.static(__dirname + '/public'));
@@ -116,7 +131,9 @@ async function getSiteInfo(){
     // "https://toot.community/users/openculture",
 }
 
-const { checkFeed } = require("./server/fed-plugin/lib/checkFeed")
+const { checkFeed } = require("./server/fed-plugin/lib/checkFeed");
+const { sendAcceptMessage } = require("./server/fed-plugin/lib/sendAcceptMessage");
+
 
 app.get("/checkfeed", checkFeed)
 

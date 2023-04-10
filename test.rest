@@ -11,6 +11,11 @@ Accept: application/activity+json
 
 ###
 
+GET https://todon.eu/@kzxpr/110162889428823766
+Accept: application/activity+json
+
+###
+
 GET https://todon.eu/users/kzxpr/outbox?page=true
 Accept: application/activity+json
 
