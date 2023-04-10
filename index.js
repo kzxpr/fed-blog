@@ -69,14 +69,18 @@ app.use("/ap/admin", ap_admin_routes);
 
 const fed = require("./server/fed-plugin/index")()
 
-fed.eventHandler.on("test", async function(follow_body){
-    console.log(clc.blue("TRIGGER"), clc.yellow("TEST!"), follow_body)
+fed.eventHandler.on("follow:add", async function(follow_body){
+    console.log(clc.magenta("TRIGGER"), "Send accept to follow")
 
     const local_uri = follow_body.object;
     const domain = await getConfigByKey("domain")
 
     await sendAcceptMessage(follow_body, domain)
     //await sendLatestMessages(follower_uri, local_uri)
+})
+
+fed.eventHandler.on("create:add", async function(body){
+    console.log(clc.magenta("TRIGGER create:add"), body.to)
 })
 
 /* STATICS */
@@ -135,7 +139,10 @@ const { checkFeed } = require("./server/fed-plugin/lib/checkFeed");
 const { sendAcceptMessage } = require("./server/fed-plugin/lib/sendAcceptMessage");
 
 
-app.get("/checkfeed", checkFeed)
+app.get("/checkfeed", async(req, res) => {
+    await checkFeed();
+    res.send("DONE")
+})
 
 app.get('/profile/:username', async function (req, res) {
     let username = req.params.username;
