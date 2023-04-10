@@ -46,7 +46,7 @@ Content-Type: application/json
 
 ###
 
-GET https://todon.eu/users/kzxpr
+GET https://todon.eu/users/kzxpr/outbox
 Access-Control-Allow-Origin: *
 Accept: application/activity+json
 
@@ -89,6 +89,13 @@ Accept: application/activity+json
 GET https://test.fed-it.nu/u/blog/followers
 Access-Control-Allow-Origin: *
 Accept: application/activity+json
+
+###
+
+GET https://test.fed-it.nu/u/blog/outbox
+Access-Control-Allow-Origin: *
+Accept: application/activity+json
+
 ###
 
 GET https://dev2.hackademiet.dk/u/blog/followers?page=1
