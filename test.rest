@@ -11,6 +11,11 @@ Accept: application/activity+json
 
 ###
 
+GET https://libranet.de/display/0b6b25a8-1163-b9f7-b8f3-a17759794507
+Accept: application/activity+json
+
+###
+
 GET https://todon.eu/@kzxpr/110162889428823766
 Accept: application/activity+json
 
@@ -127,7 +132,17 @@ Accept: application/activity+json
 
 ###
 
-GET https://libranet.de/display/0b6b25a8-1163-b426-c4c1-3da542157652
+GET https://todon.eu/@kzxpr/110162889428823766
+Accept: application/activity+json
+
+###
+
+GET https://libranet.de/display/0b6b25a8-2764-348a-61dd-cf0943155446
+Accept: application/activity+json
+
+###
+
+GET https://libranet.de/objects/0b6b25a8-1163-b426-5d40-c36120395459
 Accept: application/activity+json
 
 ###
