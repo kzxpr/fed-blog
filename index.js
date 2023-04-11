@@ -138,9 +138,13 @@ async function getSiteInfo(){
 const { checkFeed } = require("./server/fed-plugin/lib/checkFeed");
 const { sendAcceptMessage } = require("./server/fed-plugin/lib/sendAcceptMessage");
 
+/*function getFollowed(){
+    //return ["https://todon.eu/users/kzxpr", "https://todon.nl/users/NOISEBOB", "https://kolektiva.social/users/glaspest", "https://mastodon.social/users/NilsenMuseum"];//, "https://libranet.de/profile/kzxpr"]
+}*/
+
 
 app.get("/checkfeed", async(req, res) => {
-    await checkFeed();
+    await checkFeed(["https://todon.eu/users/kzxpr", "https://todon.nl/users/NOISEBOB"]);
     res.send("DONE")
 })
 

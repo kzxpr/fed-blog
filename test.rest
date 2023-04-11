@@ -11,6 +11,16 @@ Accept: application/activity+json
 
 ###
 
+GET https://framatube.org/videos/watch/4294a720-f263-4ea4-9392-cf9cea4d5277
+Accept: application/activity+json
+
+###
+
+GET https://mastodont.cat/users/CarmePont/statuses/110104708892121064
+Accept: application/activity+json
+
+###
+
 GET https://libranet.de/display/0b6b25a8-1163-b9f7-b8f3-a17759794507
 Accept: application/activity+json
 
