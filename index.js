@@ -3,6 +3,9 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3011;
 
+const AP_USERNAME = process.env.AP_USERNAME;
+const AP_KEY = process.env.AP_KEY;
+
 /* KNEX */
 const { Tag, Account, Message } = require("./server/fed-plugin/models/db")
 const db = require("./knexfile")
@@ -79,7 +82,14 @@ fed.eventHandler.on("follow:add", async function(follow_body){
     const local_uri = follow_body.object;
     const domain = await getConfigByKey("domain")
 
-    await fed.sendAcceptMessage(follow_body, domain)
+    await fed.sendAccept(AP_USERNAME, AP_KEY, follow_body.actor, follow_body)
+    .then((d) => {
+        console.log(clc.green("SUCCESS"), "accepted follow from", follow_body.actor, "to", AP_USERNAME)
+    })
+    .catch((e) => {
+        console.log(clc.red("ERROR"), "while sending accept message to", follow_body.to, e)
+    })
+    //await fed.sendAcceptMessage(follow_body, domain)
     //await sendLatestMessages(follower_uri, local_uri)
 })
 
