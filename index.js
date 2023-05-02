@@ -204,7 +204,12 @@ app.get(["/what"], async (req, res) => {
 })
 
 app.get(["/", "/page", "/post", "/tag", "/page/:pageno", "/post/:postid", "/tag/:tagname", "/tag/:tagname/page/:pageno", "/tag/:tagname/post/:postid"], async (req, res) => {
-    const user_uri = await getConfigByKey("user_url");
+    const user_uri = await getConfigByKey("user_url") || "";
+    console.log("Using account with uri", user_uri)
+
+    if(user_uri==""){
+        throw new Error("No user_uri defined!")
+    }
 
     var postid=null;
     var tagname=null;
@@ -262,8 +267,6 @@ app.get(["/", "/page", "/post", "/tag", "/page/:pageno", "/post/:postid", "/tag/
 
     const account = await Account.query().where("uri", "=", user_uri).first()
         .withGraphFetched("[followers, following]")
-
-    console.log("Using account with uri", user_uri)
 
     var hashtags = new Array();
     await Message.query().where("attributedTo", "=", user_uri)
