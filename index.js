@@ -9,6 +9,11 @@ const db = require("./knexfile")
 const knex = require("knex")(db)
 var my_domain = "";
 
+/* BODY PARSER */
+var bodyParser = require('body-parser')
+app.use(bodyParser.json({type: 'application/activity+json'})); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 /* FedPlugin */
 const fed = require("./server/fed-plugin/index")({ domain: "domain" })
 
@@ -32,11 +37,6 @@ const clc = require("cli-color");
 
 /* PASS PROXY - TO GET IPs */
 app.set('trust proxy',true); 
-
-/* BODY PARSER */
-var bodyParser = require('body-parser')
-app.use(bodyParser.json({type: 'application/activity+json'})); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 /* ALIVE TEST */
 app.get("/alive", (req, res) => {
