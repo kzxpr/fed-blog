@@ -8,6 +8,17 @@ const { Tag, Account, Message } = require("./server/fed-plugin/models/db")
 const db = require("./knexfile")
 const knex = require("knex")(db)
 
+/* LOAD CONFIG */
+async function loadConfig(){
+    const my_domain = await getConfigByKey("domain")
+    app.set('domain', my_domain);
+}
+
+loadConfig();
+
+/* FedPlugin */
+const fed = require("./server/fed-plugin/index")({ domain: DOMAIN })
+
 /* CORS */
 const cors = require('cors')
 
@@ -51,13 +62,6 @@ async function getConfigByKey(key){
         })
 }
 
-async function loadConfig(){
-    const my_domain = await getConfigByKey("domain")
-    app.set('domain', my_domain);
-}
-
-loadConfig();
-
 /* ACTIVITY PUB */
 const ap_webfinger = require("./server/fed-plugin/webfinger")
 const ap_user = require("./server/fed-plugin/user")
@@ -66,8 +70,6 @@ const ap_admin_routes = require("./server/fed-plugin/admin")
 app.use("/.well-known/webfinger/", cors(), ap_webfinger)
 app.use("/u", cors(), ap_user)
 app.use("/ap/admin", ap_admin_routes);
-
-const fed = require("./server/fed-plugin/index")()
 
 fed.eventHandler.on("follow:add", async function(follow_body){
     console.log(clc.magenta("TRIGGER"), "Send accept to follow")
