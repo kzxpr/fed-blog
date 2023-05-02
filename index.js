@@ -79,7 +79,7 @@ fed.eventHandler.on("follow:add", async function(follow_body){
     const local_uri = follow_body.object;
     const domain = await getConfigByKey("domain")
 
-    await sendAcceptMessage(follow_body, domain)
+    await fed.sendAcceptMessage(follow_body, domain)
     //await sendLatestMessages(follower_uri, local_uri)
 })
 
