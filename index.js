@@ -7,17 +7,19 @@ const port = process.env.PORT || 3011;
 const { Tag, Account, Message } = require("./server/fed-plugin/models/db")
 const db = require("./knexfile")
 const knex = require("knex")(db)
+var my_domain = "";
+
+/* FedPlugin */
+const fed = require("./server/fed-plugin/index")({ domain: "domain" })
 
 /* LOAD CONFIG */
 async function loadConfig(){
-    const my_domain = await getConfigByKey("domain")
+    my_domain = await getConfigByKey("domain")
     app.set('domain', my_domain);
+    fed.setDomain(my_domain)
 }
 
 loadConfig();
-
-/* FedPlugin */
-const fed = require("./server/fed-plugin/index")({ domain: DOMAIN })
 
 /* CORS */
 const cors = require('cors')
