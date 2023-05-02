@@ -76,7 +76,7 @@ app.use("/.well-known/webfinger/", cors(), ap_webfinger)
 app.use("/u", cors(), ap_user)
 app.use("/ap/admin", ap_admin_routes);
 
-/*fed.eventHandler.on("follow:add", async function(follow_body){
+fed.eventHandler.on("follow:add", async function(follow_body){
     console.log(clc.magenta("TRIGGER"), "Send accept to follow")
 
     const local_uri = follow_body.object;
