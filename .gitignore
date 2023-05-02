@@ -106,3 +106,5 @@ dist
 public/avatars/*
 
 sandbox
+
+.env

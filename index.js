@@ -263,11 +263,15 @@ app.get(["/", "/page", "/post", "/tag", "/page/:pageno", "/post/:postid", "/tag/
     const account = await Account.query().where("uri", "=", user_uri).first()
         .withGraphFetched("[followers, following]")
 
+    console.log("LOADED ACCOUNT", account)
+    console.log("URI", user_uri)
+
     var hashtags = new Array();
     await Message.query().where("attributedTo", "=", user_uri)
         //.andWhere("public", "=", 1)
         .withGraphFetched("tags")
         .then((all_posts) => {
+            console.log("GOT POSTS", all_posts)
             for(let post of all_posts){
                 for(let tag of post.tags){
                     if(tag.type == "Hashtag"){
