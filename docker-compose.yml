@@ -5,6 +5,6 @@ services:
         restart: always
         build: .
         extra_hosts:
-           - "host.docker.internal:host-gateway"
+           - "host.docker.internal:172.17.0.1"
         ports:
             - "${PORT}:${PORT}"
