@@ -1,0 +1,10 @@
+version: "3"
+services:
+    server:
+        env_file: .env
+        restart: always
+        build: .
+        extra_hosts:
+           - "host.docker.internal:host-gateway"
+        ports:
+            - "${PORT}:${PORT}"
