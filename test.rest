@@ -51,6 +51,34 @@ Content-Type: application/json
 
 ###
 
+POST https://localhost:6001/inbox
+Content-Type: application/json
+
+{
+    "data": "This is my content",
+    "subdata": {
+        "name": "Kasper",
+        "msg": "And more data",
+        "films": ["Gremlins", "A Clockwork Orange", "Persona"]
+    }
+}
+
+###
+
+POST https://test.kasperaliteten.dk/inbox
+Content-Type: application/json
+
+{
+    "data": "This is my content",
+    "subdata": {
+        "name": "Kasper",
+        "msg": "And more data",
+        "films": ["Gremlins", "A Clockwork Orange", "Persona"]
+    }
+}
+
+###
+
 GET https://dev2.hackademiet.dk/u/drno/outbox
 Content-Type: application/json
 
