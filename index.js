@@ -77,20 +77,30 @@ app.use("/u", cors(), ap_user)
 app.use("/ap/admin", ap_admin_routes);
 
 fed.eventHandler.on("follow:add", async function(follow_body){
-    console.log(clc.magenta("TRIGGER"), "Send accept to follow")
-
-    const local_uri = follow_body.object;
-    const domain = await getConfigByKey("domain")
-
-    await fed.sendAccept(AP_USERNAME, AP_KEY, follow_body.actor, follow_body)
-    .then((d) => {
-        console.log(clc.green("SUCCESS"), "accepted follow from", follow_body.actor, "to", AP_USERNAME)
-    })
-    .catch((e) => {
-        console.log(clc.red("ERROR"), "while sending accept message to", follow_body.to, e)
-    })
-    //await fed.sendAcceptMessage(follow_body, domain)
-    //await sendLatestMessages(follower_uri, local_uri)
+    const from_uri = follow_body.actor;
+    const to_uri = follow_body.object;
+    console.log(clc.magenta("TRIGGER"), "Received FOLLOW from", from_uri, "to", to_uri)
+    
+    await Account.query()
+        .whereNotNull("apikey")
+        .andWhere("uri", "=", to_uri)
+        .first()
+        .then(async(row) => {
+            if(row){
+                await fed.sendAccept(row.username, row.apikey, from_uri, follow_body)
+                .then((d) => {
+                    console.log(clc.green("SUCCESS"), "accepted follow from", from_uri, "to", row.username)
+                })
+                .catch((e) => {
+                    console.log(clc.red("ERROR"), "while sending accept message to", to_uri, e)
+                })
+            }else{
+                console.log(clc.red("ERROR"), "no apikey found for", to_uri)
+            }
+        })
+        .catch((e) => {
+            console.log(clc.red("ERROR"), "while fetching APIkey for", to_uri, e)
+        })
 })
 
 fed.eventHandler.on("create:add", async function(body){

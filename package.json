@@ -34,6 +34,7 @@
     "express-handlebars": "^6.0.6",
     "jsonwebtoken": "^9.0.0",
     "knex": "^2.3.0",
+    "luxon": "^3.3.0",
     "mysql": "^2.18.1",
     "node-emoji": "^1.11.0",
     "objection": "^3.0.1",
